@@ -8,6 +8,8 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
 const app = express();
+const allowedOrigins = ['https://form-bot-full-stack-31tj.vercel.app'];
+
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -16,8 +18,12 @@ app.use(cors({
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true, // Allow cookies if needed
+  methods: ['GET', 'POST', 'OPTIONS'], // Specify allowed HTTP methods
+  allowedHeaders: ['Content-Type', 'Authorization'], // Include headers your app uses
+  credentials: true, // Allow credentials (cookies, authorization headers)
 }));
+
+app.options('*', cors()); // Handle preflight requests
 
 app.use(express.json());
 
