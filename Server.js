@@ -9,7 +9,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:3000", 
+  origin: "https://form-bot-full-stack-31tj.vercel.app/", 
   credentials: true, 
 }));
 
