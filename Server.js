@@ -9,8 +9,14 @@ require('dotenv').config();
 
 const app = express();
 app.use(cors({
-  origin: "https://form-bot-full-stack-31tj.vercel.app/", 
-  credentials: true, 
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true, // Allow cookies if needed
 }));
 
 app.use(express.json());
